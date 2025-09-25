@@ -6,12 +6,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.io.IOException;
+
 public class PinBekero extends javax.swing.JFrame {
 
     private static int kattDb = 0;
     private static boolean mentve = false;
     private static String pin = "";
-    
+
     public PinBekero() {
         initComponents();
     }
@@ -111,40 +116,32 @@ public class PinBekero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        hozzaadGombokat();
+    }//GEN-LAST:event_formWindowOpened
+    private void hozzaadGombokat() {
         for (int i = 0; i < jPanel1.getComponentCount(); i++) {
             JButton btn = (JButton) jPanel1.getComponent(i);
-            btn.setText(i + "");
-            btn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (kattDb <= 4) {
-                        kattDb++;
-                        pin += e.getActionCommand();
-                    } 
-                    if(kattDb == 4) {
-                        chbMutat.setEnabled(true);
-                        JOptionPane.showMessageDialog(rootPane, "Pin mentve!");
-                    }
-                    
-                }
-            });
+            btn.setText(String.valueOf(i));
+            btn.addActionListener(this::gombKattintas);
         }
-    }//GEN-LAST:event_formWindowOpened
-
+    }
     private void chbMutatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbMutatActionPerformed
-        if(chbMutat.isSelected()){
+
+        if (chbMutat.isSelected()) {
             for (int i = 0; i < pin.length(); i++) {
-                int gomb = Integer.parseInt(pin.charAt(i)+"");
-                jPanel1.getComponent(gomb).setBackground(Color.red);
+                int gomb = Integer.parseInt(pin.charAt(i) + "");
+                jPanel1.getComponent(gomb).setBackground(Color.RED);
             }
-        }else{
+        } else {
             chbMutat.setEnabled(false);
             kattDb = 0;
             for (int i = 0; i < pin.length(); i++) {
-                int gomb = Integer.parseInt(pin.charAt(i)+"");
-                jPanel1.getComponent(gomb).setBackground(Color.LIGHT_GRAY);
+                int gomb = Integer.parseInt(pin.charAt(i) + "");
+                jPanel1.getComponent(gomb).setBackground(null); // visszaállítás
             }
+            pin = ""; // új PIN kezdése
         }
+
     }//GEN-LAST:event_chbMutatActionPerformed
 
     public static void main(String args[]) {
@@ -193,4 +190,25 @@ public class PinBekero extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    private void gombKattintas(ActionEvent e) {
+
+        if (kattDb < 4) {
+            kattDb++;
+            pin += e.getActionCommand();
+        }
+        if (kattDb == 4 && !mentve) {
+            chbMutat.setEnabled(true);
+            JOptionPane.showMessageDialog(rootPane, "Pin mentve!");
+            mentesFajlba(pin);
+            mentve = true;
+        }
+
+    }
+
+    private void mentesFajlba(String pin) {
+
+
+    }
 }
+    
