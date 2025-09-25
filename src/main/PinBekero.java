@@ -14,10 +14,6 @@ import modell.PinModell;
 
 public class PinBekero extends javax.swing.JFrame {
 
-    private static int kattDb = 0;
-    private static boolean mentve = false;
-    private static String pin = "";
-
     private PinModell modell = new PinModell();
 
     public PinBekero() {
@@ -130,24 +126,18 @@ public class PinBekero extends javax.swing.JFrame {
     }
     private void chbMutatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbMutatActionPerformed
 
-        /*if (chbMutat.isSelected()) {
+        if (chbMutat.isSelected()) {
+            String pin = modell.getPin();
             for (int i = 0; i < pin.length(); i++) {
                 int gomb = Integer.parseInt(pin.charAt(i) + "");
                 jPanel1.getComponent(gomb).setBackground(Color.RED);
             }
         } else {
+            modell.reset();
             chbMutat.setEnabled(false);
-            kattDb = 0;
-            for (int i = 0; i < pin.length(); i++) {
-                int gomb = Integer.parseInt(pin.charAt(i) + "");
-                jPanel1.getComponent(gomb).setBackground(null); // visszaállítás
+            for (int i = 0; i < jPanel1.getComponentCount(); i++) {
+                jPanel1.getComponent(i).setBackground(null);
             }
-            pin = ""; // új PIN kezdése
-        }*/
-        String pin = modell.getPin();
-        for (int i = 0; i < pin.length(); i++) {
-            int gomb = Integer.parseInt(pin.charAt(i) + "");
-            jPanel1.getComponent(gomb).setBackground(Color.RED);
         }
 
 
