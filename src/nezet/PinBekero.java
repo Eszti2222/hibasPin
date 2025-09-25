@@ -1,5 +1,6 @@
 package nezet;
 
+import controller.PinController;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,7 @@ import modell.PinModell;
 public class PinBekero extends javax.swing.JFrame {
 
     private PinModell modell = new PinModell();
+    private PinController controller = new PinController(new PinModell());
 
     public PinBekero() {
         initComponents();
@@ -202,11 +204,11 @@ public class PinBekero extends javax.swing.JFrame {
             mentesFajlba(pin);
             mentve = true;
         }*/
-        boolean kesz = modell.hozzaadSzam(e.getActionCommand());
+        boolean kesz = controller.hozzaadSzam(e.getActionCommand());
         if (kesz) {
             chbMutat.setEnabled(true);
             JOptionPane.showMessageDialog(rootPane, "Pin mentve!");
-            mentesFajlba(modell.getPin());
+            mentesFajlba(controller.getPin());
         }
 
     }

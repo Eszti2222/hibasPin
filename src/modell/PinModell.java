@@ -1,6 +1,8 @@
 
 package modell;
 
+import controller.PinController;
+
 
 public class PinModell {
     private String pin = "";
