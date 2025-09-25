@@ -10,12 +10,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.io.IOException;
+import modell.PinModell;
 
 public class PinBekero extends javax.swing.JFrame {
 
     private static int kattDb = 0;
     private static boolean mentve = false;
     private static String pin = "";
+
+    private PinModell modell = new PinModell();
 
     public PinBekero() {
         initComponents();
@@ -127,7 +130,7 @@ public class PinBekero extends javax.swing.JFrame {
     }
     private void chbMutatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbMutatActionPerformed
 
-        if (chbMutat.isSelected()) {
+        /*if (chbMutat.isSelected()) {
             for (int i = 0; i < pin.length(); i++) {
                 int gomb = Integer.parseInt(pin.charAt(i) + "");
                 jPanel1.getComponent(gomb).setBackground(Color.RED);
@@ -140,7 +143,13 @@ public class PinBekero extends javax.swing.JFrame {
                 jPanel1.getComponent(gomb).setBackground(null); // visszaállítás
             }
             pin = ""; // új PIN kezdése
+        }*/
+        String pin = modell.getPin();
+        for (int i = 0; i < pin.length(); i++) {
+            int gomb = Integer.parseInt(pin.charAt(i) + "");
+            jPanel1.getComponent(gomb).setBackground(Color.RED);
         }
+
 
     }//GEN-LAST:event_chbMutatActionPerformed
 
@@ -193,7 +202,7 @@ public class PinBekero extends javax.swing.JFrame {
 
     private void gombKattintas(ActionEvent e) {
 
-        if (kattDb < 4) {
+        /*if (kattDb < 4) {
             kattDb++;
             pin += e.getActionCommand();
         }
@@ -202,6 +211,12 @@ public class PinBekero extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Pin mentve!");
             mentesFajlba(pin);
             mentve = true;
+        }*/
+        boolean kesz = modell.hozzaadSzam(e.getActionCommand());
+        if (kesz) {
+            chbMutat.setEnabled(true);
+            JOptionPane.showMessageDialog(rootPane, "Pin mentve!");
+            mentesFajlba(modell.getPin());
         }
 
     }
