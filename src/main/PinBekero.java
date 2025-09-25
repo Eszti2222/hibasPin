@@ -207,8 +207,7 @@ public class PinBekero extends javax.swing.JFrame {
     }
 
     private void mentesFajlba(String pin) {
-
-
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 }
-    
