@@ -207,7 +207,12 @@ public class PinBekero extends javax.swing.JFrame {
     }
 
     private void mentesFajlba(String pin) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            Path path = Path.of("pin.txt");
+            Files.writeString(path, pin, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Hiba történt a mentés során: " + ex.getMessage());
+        }
     }
 
 }
